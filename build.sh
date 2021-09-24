@@ -2,6 +2,13 @@
 
 set -exo pipefail
 
+if [[ "$VERSION" == "" ]] || [[ "$URL" == "" ]]; then
+    export VERSION=21.02
+    export URL=https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
+
+    echo "\$VERSION and/or \$URL not set, using defaults: $VERSION $URL"
+fi
+
 # use RAM disk if possible
 if [ "$CI" == "" ] && [ -d /dev/shm ]; then
     TEMP_BASE=/dev/shm
@@ -25,13 +32,10 @@ OLD_CWD="$(readlink -f .)"
 
 pushd "$BUILD_DIR"
 
-VERSION="${VERSION:-21.02}"
-url=https://sourceforge.net/projects/sevenzip/files/7-Zip/"$VERSION"/7z"$(sed 's|\.||' <<<"$VERSION")"-src.7z/download
-
 if type wget &>/dev/null; then
-    wget "$url" -O src.7z
+    wget "$URL" -O src.7z
 elif type curl &>/dev/null; then
-    curl "$url" -o src.7z
+    curl "$URL" -o src.7z
 else
     echo "error: need either curl or wget to download the source code"
     exit 1

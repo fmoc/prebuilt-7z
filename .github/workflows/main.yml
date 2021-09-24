@@ -4,10 +4,20 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: CentOS 7
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - VERSION: 21.02
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
+          - VERSION: 21.03
+            URL: https://7-zip.org/a/7z2103-src.7z
+
+    name: 7-zip ${{ matrix.VERSION }}
     runs-on: ubuntu-latest
     env:
-      VERSION: 21.02
+      VERSION: ${{ matrix.VERSION }}
+      URL: ${{ matrix.URL }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -19,7 +29,7 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: 7z
+          name: 7-zip ${{ matrix.VERSION }}
           path: |
             7z*.tar.gz
 
