@@ -12,24 +12,40 @@ jobs:
             URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
           - VERSION: 21.03
             URL: https://7-zip.org/a/7z2103-src.7z
+          - VERSION: 21.02
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
+            BUILD_ASM: 1
+          - VERSION: 21.03
+            URL: https://7-zip.org/a/7z2103-src.7z
+            BUILD_ASM: 1
 
-    name: 7-zip ${{ matrix.VERSION }}
+    name: 7-zip ${{ matrix.VERSION }} BUILD_ASM=${{ matrix.BUILD_ASM }}
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ matrix.VERSION }}
       URL: ${{ matrix.URL }}
+      BUILD_ASM: ${{ matrix.BUILD_ASM }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
       - name: Build binary
         run: |
           bash -ex build-in-docker.sh
-          tar cfvz prebuilt-7z-"$VERSION"-x86_64.tar.gz ./7z ./7zz
+
+          if [[ "$BUILD_ASM" == "" ]]; then
+            archive_name=prebuilt-7z-"$VERSION"-x86_64.tar.gz
+          else
+            archive_name=prebuilt-7z-"$VERSION"-x86_64-asm.tar.gz
+          fi
+
+          tar cfvz "$archive_name" ./7z ./7zz
+
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: 7-zip ${{ matrix.VERSION }}
+          name: 7-zip ${{ matrix.VERSION }} BUILD_ASM=${{ matrix.BUILD_ASM }}
           path: |
             prebuilt-7z*.tar.gz
 
