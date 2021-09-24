@@ -43,11 +43,23 @@ fi
 
 7za x src.7z
 
-# build regular binary without assembly, which uses some very exotic assembler called asmc that is not easily available
 if [[ "$CI" != "" ]]; then
     procs="$(nproc --ignore=1)"
 else
     procs="$(nproc)"
+fi
+
+# default makefile, does not build assembler code
+makefile="../../cmpl_gcc.mak"
+
+# we can optionally build with the assembler if requested by the user
+if [[ "$BUILD_ASM" != "" ]]; then
+    mkdir asmc
+    wget https://github.com/nidud/asmc/archive/refs/heads/master.tar.gz -O - | tar xz -C asmc --strip-components=1
+    export PATH="$(readlink -f asmc/source/asmc/linux/bin):$PATH"
+    chmod +x asmc/source/asmc/linux/bin/asmc
+
+    makefile="../../cmpl_gcc_x64.mak"
 fi
 
 pushd CPP/7zip/UI/Console
@@ -57,9 +69,9 @@ pushd CPP/7zip/UI/Console
         sed -i 's|^LDFLAGS_STATIC\s*=\.*|& -static -static-libstdc++ -static-libgcc|g' ../../7zip_gcc.mak
     fi
 
-    make -f ../../cmpl_gcc.mak -j "$procs"
+    make -f "$makefile" -j "$procs"
 
-    cp b/g/7z "$OLD_CWD"
+    cp b/g*/7z "$OLD_CWD"
 
 popd
 
@@ -68,10 +80,8 @@ popd
 
 pushd CPP/7zip/Bundles/Alone2
 
-    make -f makefile.gcc -j "$procs"
+    make -f "$makefile" -j "$procs"
 
-    cp _o/7zz "$OLD_CWD"
+    cp b/g*/7zz "$OLD_CWD"
 
 popd
-
-
