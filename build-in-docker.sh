@@ -6,7 +6,7 @@ docker build -t static-7zip-build .
 
 docker run \
 --rm -i -v "$(readlink -f "$(dirname "$0")")":/ws -w /ws --user "$(id -u)" \
--e VERSION -e URL -e STATIC_BUILD -e BUILD_ASM \
+-e CI=1 -e VERSION -e URL -e STATIC_BUILD -e BUILD_ASM \
 static-7zip-build \
 bash <<\EOF
     source /opt/rh/devtoolset-*/enable
