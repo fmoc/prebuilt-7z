@@ -1,8 +1,9 @@
 #! /bin/bash
 
+set -exo pipefail
+
 docker build -t static-7zip-build .
 
-#exit
 docker run \
 --rm -i -v "$(readlink -f "$(dirname "$0")")":/ws -w /ws --user "$(id -u)" \
 -e VERSION -e URL -e STATIC_BUILD -e BUILD_ASM \
