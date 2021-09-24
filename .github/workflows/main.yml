@@ -25,7 +25,7 @@ jobs:
       - name: Build binary
         run: |
           bash -ex build-in-docker.sh
-          tar cfvz prebuilt-7z-"$VERSION"-x86_64.tar.gz ./7z
+          tar cfvz prebuilt-7z-"$VERSION"-x86_64.tar.gz ./7z ./7zz
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:

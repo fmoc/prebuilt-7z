@@ -43,20 +43,35 @@ fi
 
 7za x src.7z
 
-pushd CPP/7zip/UI/Console
-
-# patch to build fully statically (optional)
-if [[ "$STATIC_BUILD" != "" ]]; then
-    sed -i 's|^LDFLAGS_STATIC\s*=\.*|& -static -static-libstdc++ -static-libgcc|g' ../../7zip_gcc.mak
-fi
-
-# build without assembly, which uses some very exotic assembler called asmc that is not easily available
+# build regular binary without assembly, which uses some very exotic assembler called asmc that is not easily available
 if [[ "$CI" != "" ]]; then
     procs="$(nproc --ignore=1)"
 else
     procs="$(nproc)"
 fi
 
-make -f ../../cmpl_gcc.mak -j "$procs"
+pushd CPP/7zip/UI/Console
 
-cp b/g/7z "$OLD_CWD"
+    # patch to build fully statically (optional)
+    if [[ "$STATIC_BUILD" != "" ]]; then
+        sed -i 's|^LDFLAGS_STATIC\s*=\.*|& -static -static-libstdc++ -static-libgcc|g' ../../7zip_gcc.mak
+    fi
+
+    make -f ../../cmpl_gcc.mak -j "$procs"
+
+    cp b/g/7z "$OLD_CWD"
+
+popd
+
+# the regular binary has a dependency on some 7z.so
+# there is some "Alone2" bundle which builds a 7zz binary that does not have such a dependency, therefore we also build this
+
+pushd CPP/7zip/Bundles/Alone2
+
+    make -f makefile.gcc -j "$procs"
+
+    cp _o/7zz "$OLD_CWD"
+
+popd
+
+
