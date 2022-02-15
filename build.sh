@@ -55,7 +55,8 @@ makefile="../../cmpl_gcc.mak"
 # we can optionally build with the assembler if requested by the user
 if [[ "$BUILD_ASM" != "" ]]; then
     mkdir asmc
-    wget https://github.com/nidud/asmc/archive/refs/heads/master.tar.gz -O - | tar xz -C asmc --strip-components=1
+    # the repo structure has changed in later releases, therefore we pin a "known working" version
+    wget https://github.com/nidud/asmc/archive/a99d03231911f73ae40cd9330c43284a3244b912.tar.gz -O - | tar xz -C asmc --strip-components=1
     export PATH="$(readlink -f asmc/source/asmc/linux/bin):$PATH"
     chmod +x asmc/source/asmc/linux/bin/asmc
 
