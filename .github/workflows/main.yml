@@ -10,18 +10,23 @@ jobs:
         include:
           - VERSION: 21.02
             URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
-          - VERSION: 21.03
-            URL: https://7-zip.org/a/7z2103-src.7z
-          - VERSION: 21.06
-            URL: https://www.7-zip.org/a/7z2106-src.7z
           - VERSION: 21.02
             URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
             BUILD_ASM: 1
           - VERSION: 21.03
             URL: https://7-zip.org/a/7z2103-src.7z
+          - VERSION: 21.03
+            URL: https://7-zip.org/a/7z2103-src.7z
             BUILD_ASM: 1
           - VERSION: 21.06
-            URL: https://www.7-zip.org/a/7z2106-src.7z
+            URL: https://7-zip.org/a/7z2106-src.7z
+          - VERSION: 21.06
+            URL: https://7-zip.org/a/7z2106-src.7z
+            BUILD_ASM: 1
+          - VERSION: 21.07
+            URL: https://7-zip.org/a/7z2107-src.7z
+          - VERSION: 21.07
+            URL: https://7-zip.org/a/7z2107-src.7z
             BUILD_ASM: 1
 
     name: 7-zip ${{ matrix.VERSION }} BUILD_ASM=${{ matrix.BUILD_ASM }}
