@@ -2,7 +2,7 @@
 
 set -exo pipefail
 
-docker build -t static-7zip-build .
+docker build --pull -t static-7zip-build .
 
 docker run \
 --rm -i -v "$(readlink -f "$(dirname "$0")")":/ws -w /ws --user "$(id -u)" \
