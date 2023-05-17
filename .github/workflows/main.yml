@@ -36,6 +36,11 @@ jobs:
           - VERSION: 22.01
             URL: https://7-zip.org/a/7z2201-src.7z
             BUILD_ASM: 1
+          - VERSION: 23.01
+            URL: https://7-zip.org/a/7z2301-src.7z
+          - VERSION: 23.01
+            URL: https://7-zip.org/a/7z2301-src.7z
+            BUILD_ASM: 1
 
     name: 7-zip ${{ matrix.VERSION }} BUILD_ASM=${{ matrix.BUILD_ASM }}
     runs-on: ubuntu-latest
