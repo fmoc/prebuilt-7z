@@ -17,19 +17,19 @@ jobs:
             URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
             BUILD_ASM: 1
           - VERSION: 21.03
-            URL: https://7-zip.org/a/7z2103-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.03/7z2103-src.7z/download
           - VERSION: 21.03
-            URL: https://7-zip.org/a/7z2103-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.03/7z2103-src.7z/download
             BUILD_ASM: 1
           - VERSION: 21.06
-            URL: https://7-zip.org/a/7z2106-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.06/7z2106-src.7z/download
           - VERSION: 21.06
-            URL: https://7-zip.org/a/7z2106-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.06/7z2106-src.7z/download
             BUILD_ASM: 1
           - VERSION: 21.07
-            URL: https://7-zip.org/a/7z2107-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.07/7z2107-src.7z/download
           - VERSION: 21.07
-            URL: https://7-zip.org/a/7z2107-src.7z
+            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.07/7z2107-src.7z/download
             BUILD_ASM: 1
           - VERSION: 22.01
             URL: https://7-zip.org/a/7z2201-src.7z
