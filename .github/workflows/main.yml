@@ -2,6 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
+env:
+  APPIMAGE_EXTRACT_AND_RUN: 1
+
 jobs:
   build:
     strategy:
