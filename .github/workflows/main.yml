@@ -11,16 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - VERSION: 21.02
-            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
-          - VERSION: 21.02
-            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.02/7z2102-src.7z/download
-            BUILD_ASM: 1
-          - VERSION: 21.03
-            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.03/7z2103-src.7z/download
-          - VERSION: 21.03
-            URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.03/7z2103-src.7z/download
-            BUILD_ASM: 1
           - VERSION: 21.06
             URL: https://sourceforge.net/projects/sevenzip/files/7-Zip/21.06/7z2106-src.7z/download
           - VERSION: 21.06
